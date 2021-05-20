@@ -17,7 +17,7 @@ public class Cryptox
     
     private static void createOptionsDialog()
     {
-        userInputOption = uiBuilderComponent.userInputDialogs(0, "Choose Option");
+        userInputOption = uiBuilderComponent.getSelectedUserOption("Choose Option");
         executeOption();
     }
     
@@ -27,21 +27,21 @@ public class Cryptox
         {
        
         case "Encrypt":
-          encryptInputString = uiBuilderComponent.userInputDialogs(1, "Select the file you wish to encrypt");
+          encryptInputString = uiBuilderComponent.getEncryptOrDecryptFileInputPath("Select the file you wish to encrypt");
 
-          encryptOutputString = uiBuilderComponent.userInputDialogs(2, "Select the location and name for your encrypted file");
+          encryptOutputString = uiBuilderComponent.getEncryptOrDecryptFileOutputPath("Select the location and name for your encrypted file");
 
-          encryptPassword = uiBuilderComponent.userInputDialogs(3, "Insert the password for the encrypted file (password that will be used to decrypt the encrypred file)");
+          encryptPassword = uiBuilderComponent.getUserPassword("Insert the password for the encrypted file (password that will be used to decrypt the encrypred file)");
 
           fileEncrypterComponent.encryptFile(encryptInputString, encryptOutputString, encryptPassword);
           break;
 
         case "Decrypt":
-          decryptInputString = uiBuilderComponent.userInputDialogs(1, "Select the file you wish to decrypt");
+          decryptInputString = uiBuilderComponent.getEncryptOrDecryptFileInputPath("Select the file you wish to decrypt");
 
-          decryptOutputString = uiBuilderComponent.userInputDialogs(2, "Select the location and name for your decrypted file");
+          decryptOutputString = uiBuilderComponent.getEncryptOrDecryptFileOutputPath("Select the location and name for your decrypted file");
 
-          decryptPassword = uiBuilderComponent.userInputDialogs(3, "Insert the password of the encrypted file (password that was used when the file was encrypted)");
+          decryptPassword = uiBuilderComponent.getUserPassword("Insert the password of the encrypted file (password that was used when the file was encrypted)");
 
           fileDecrypterComponent.decryptFile(decryptInputString, decryptOutputString, decryptPassword);
           break;
