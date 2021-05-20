@@ -6,52 +6,66 @@ import javax.swing.filechooser.FileSystemView;
 
 public class UIBuilder
 {
-    public String userInputDialogs(int option, String dialogTitle)
+    private String[] cryptoxOptions = { "Encrypt", "Decrypt" };
+    private String userInputString;
+    private JFileChooser fileChooser = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());;
+    
+    public String getSelectedUserOption(String dialogTitle)
     {
+        userInputString = "";
+        userInputString = (String) JOptionPane.showInputDialog(null, "What would you like to do?", dialogTitle, JOptionPane.QUESTION_MESSAGE, null, cryptoxOptions, cryptoxOptions[0]);
         
-        JFileChooser fileChooser = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
+        exitIfInputInvalid();
+        
+        return userInputString;
+    }
+    
+    public String getUserPassword(String dialogTitle)
+    {
+        userInputString = "";
+        userInputString = JOptionPane.showInputDialog(dialogTitle);
+        
+        exitIfInputInvalid();
+        
+        return userInputString;
+    }
+    
+    public String getEncryptOrDecryptFileInputPath(String dialogTitle)
+    {
+        userInputString = "";
         fileChooser.setDialogTitle(dialogTitle);
-        String returnedString = "null";
         
-        if (option == 0)
+        if(fileChooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION)
         {
-            String[] taskyOptions = { "Encrypt", "Decrypt" };
-            String userInputResult = (String) JOptionPane.showInputDialog(null, "What would you like to do?", dialogTitle, JOptionPane.QUESTION_MESSAGE, null, taskyOptions, taskyOptions[0]);
-            if (userInputResult != null) {
-                returnedString =  userInputResult;
-            }else {
-                System.exit(0);
-            }
-        } 
-        else if (option == 1) 
-        {
-            int userInputResult = fileChooser.showOpenDialog(null);
-            if (userInputResult == JFileChooser.APPROVE_OPTION && fileChooser.getSelectedFile().exists()) {
-                returnedString = fileChooser.getSelectedFile().getAbsolutePath();
-            }else {
-                System.exit(0);
-            }
-        } 
-        else if (option == 2) 
-        {
-            int userInputResult = fileChooser.showSaveDialog(null);
-            if (userInputResult == JFileChooser.APPROVE_OPTION) {
-                returnedString = fileChooser.getSelectedFile().getAbsolutePath();
-            }else {
-                System.exit(0);
-            }
-        } 
-        else if (option == 3) 
-        {
-            String userInputResult = JOptionPane.showInputDialog(dialogTitle);
-            if (userInputResult != null && !userInputResult.isEmpty()) {
-                returnedString = userInputResult;
-            }else {
-                System.exit(0);
-            }
+            userInputString = fileChooser.getSelectedFile().getAbsolutePath();
         }
         
-        return returnedString;
+        exitIfInputInvalid();
         
+        return userInputString;
+    }
+    
+    public String getEncryptOrDecryptFileOutputPath(String dialogTitle)
+    {
+        userInputString = "";
+        fileChooser.setDialogTitle(dialogTitle);
+        
+        if(fileChooser.showSaveDialog(null) == JFileChooser.APPROVE_OPTION)
+        {
+            userInputString = fileChooser.getSelectedFile().getAbsolutePath();
+        }
+        
+        exitIfInputInvalid();
+        
+        return userInputString;
+    }
+    
+    private void exitIfInputInvalid()
+    {
+        if(userInputString == null || userInputString.isEmpty())
+        {
+            System.out.println("Invalid Input");
+            System.exit(0);
+        }
     }
 }
