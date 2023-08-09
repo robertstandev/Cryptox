@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="Cryptox:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/Cryptox_jar</output-path>
+    <root id="archive" name="Cryptox.jar">
+      <element id="module-output" name="Cryptox" />
+    </root>
+  </artifact>
+</component>
